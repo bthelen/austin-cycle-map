@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>AustinCycleMap.com</title>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+        <link rel="icon" type="image/png" href="favicon.png" />
+        <link rel="apple-touch-icon" href="touch-icon-iphone.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="touch-icon-ipad.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="touch-icon-iphone-retina.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad-retina.png">        
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css"/>
+        <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js?2"></script>
+        <style>
+            html { height: 100% }
+            body { height: 100%; margin: 0; padding: 0px 0px 0px 0px }
+        </style>
+    </head>
+    <body>
+        <div id="map" style="width: 100%; height: 100%"></div>
+        <script>
+            var map = L.map('map').setView([30.2703704,-97.736922], 14);
+            var osmAustin = L.tileLayer('http://{s}.cloudfront.net/{z}/{x}/{y}.png', {
+              minZoom: 10,
+              maxZoom: 18,
+              attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+              subdomains: ['d153n1z4wcnpcw','d3hjt58t042bjp','d2o9mfo9stjywb','d3lvrbmd3uium6']
+            }).addTo(map);
+            var bikeRoutes = L.tileLayer('http://tiles{s}.austincyclemap.com/austin-bike-routes/{z}/{x}/{y}.png', {
+              minZoom: 10,
+              maxZoom: 18,
+              attribution: 'Bike Routes Courtesy of <a href="http://www.austintexas.gov/department/gis-and-maps">City of Austin GIS Division</a>'
+            }).addTo(map);
+            var baseLayers = {
+              "OSM Austin": osmAustin
+            };
+            var overlays = {
+              "City of Austin Bike Routes": bikeRoutes
+            };
+            L.control.layers(baseLayers, overlays).addTo(map);
+            map.on('locationfound', onLocationFound);
+            map.on('locationerror', onLocationError);
+            map.locate({setView: true, maxZoom: 16});
+            function onLocationFound(e) {
+              var radius = e.accuracy / 2;
+              L.circle(e.latlng, radius).addTo(map);
+            }
+            function onLocationError(e) {
+              alert(e.message);
+            }
+        </script>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            
+            ga('create', 'UA-47433344-1', 'austincyclemap.com');
+            ga('send', 'pageview');
+            
+        </script>
+    </body>
+</html>
