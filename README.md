@@ -15,4 +15,4 @@ Tools and Frameworks Used
 Datasets Used
 -------------------------
 * [Open Street Map](http://openstreetmap.org)
-* [City of Austin Bike Routes](http://www.austintexas.gov/department/gis-and-maps) via City of Austin GIS Division
+* [City of Austin Bike Routes](ftp://ftp.ci.austin.tx.us/GIS-Data/Regional/coa_gis.html) via City of Austin GIS Division
