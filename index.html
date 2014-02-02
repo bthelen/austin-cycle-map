@@ -27,11 +27,10 @@
             var map = L.map('map', {
               maxBounds: L.latLngBounds(L.latLng(29.9276, -98.2246), L.latLng(30.6793,-97.229))
             }).setView([30.2703704,-97.736922], 14);
-            var osmAustin = L.tileLayer('http://{s}.cloudfront.net/{z}/{x}/{y}.png', {
+            var osmAustin = L.tileLayer('http://basemaptiles{s}.austincyclemap.com/austin-open-street-map/{z}/{x}/{y}.png', {
               minZoom: 10,
               maxZoom: 18,
-              attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-              subdomains: ['d153n1z4wcnpcw','d3hjt58t042bjp','d2o9mfo9stjywb','d3lvrbmd3uium6']
+              attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
             }).addTo(map);
             var bikeRoutes = L.tileLayer('http://tiles{s}.austincyclemap.com/austin-bike-routes/{z}/{x}/{y}.png', {
               minZoom: 10,
