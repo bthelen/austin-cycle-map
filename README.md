@@ -16,3 +16,9 @@ Datasets Used
 -------------------------
 * [Open Street Map](http://openstreetmap.org)
 * [City of Austin Bike Routes](http://www.austintexas.gov/department/gis-and-maps) via City of Austin GIS Division
+
+Run Local
+-------------------------
+npm install
+node app.js
+
