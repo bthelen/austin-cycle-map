@@ -27,7 +27,7 @@ var legend = L.control({position: 'bottomright'});
 
 legend.onAdd = function (map) {
     var div = L.DomUtil.create('div', 'info legend');
-    div.innerHTML += '<div class="legend-title">Bikeability Index of Bike Routes</div> ';
+    div.innerHTML += '<div id="geolocationErrorMessageHolder"></div><div class="legend-title">Bikeability Index of Bike Routes</div> ';
     div.innerHTML += '<i style="background:#229A00;"></i>High Ease of Use<br>';
     div.innerHTML += '<i style="background:#4B5ACE;"></i>Medium Ease of Use<br>';
     div.innerHTML += '<i style="background:#FF6600;"></i>Low Ease of Use -- Not for Novice Cyclist<br>';
@@ -39,7 +39,11 @@ function onLocationFound(e) {
     L.circle(e.latlng, radius).addTo(map);
 }
 function onLocationError(e) {
-    alert(e.message);
+    if(e && e.code === 1) {
+        document.getElementById("geolocationErrorMessageHolder").innerHTML = '<div class="legend-title"><i class="geolocation-error"></i>You have opted out of GeoLocation! <a href="http://en.wikipedia.org/wiki/W3C_Geolocation_API">More information</a></div>';
+    }else {
+        return;
+    }
 }
 
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
