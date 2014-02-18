@@ -1,0 +1,8 @@
+{
+  "name": "austin-cycle-map",
+  "description": "municipal bike route data overlayed upon osm",
+  "version": "1.0.0",
+  "dependencies": {
+    "connect": "2.12.0"
+  }
+}
