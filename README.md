@@ -19,6 +19,5 @@ Datasets Used
 
 Run Local
 -------------------------
-npm install
-node app.js
-
+* npm install
+* node app.js
