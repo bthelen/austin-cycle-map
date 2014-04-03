@@ -2,7 +2,13 @@ var map = L.map('map', {
     maxBounds: L.latLngBounds(L.latLng(29.9276, -98.2246), L.latLng(30.6793,-97.229))
 }).setView([30.2703704,-97.736922], 14);
 
-var osmAustin = L.tileLayer('http://basemaptiles{s}.austincyclemap.com/austin-open-street-map/{z}/{x}/{y}.png', {
+var osmAustinBright = L.tileLayer('http://basemaptiles{s}.austincyclemap.com/austin-open-street-map-bright/{z}/{x}/{y}.png', {
+    minZoom: 10,
+    maxZoom: 18,
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+}).addTo(map);
+
+var osmAustinMinimal = L.tileLayer('http://basemaptiles{s}.austincyclemap.com/austin-open-street-map-minimal/{z}/{x}/{y}.png', {
     minZoom: 10,
     maxZoom: 18,
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
@@ -14,7 +20,8 @@ var bikeRoutes = L.tileLayer('http://tiles{s}.austincyclemap.com/austin-bike-rou
     attribution: 'Bike Routes Courtesy of <a href="http://www.austintexas.gov/department/gis-and-maps">City of Austin GIS Division</a>'
 }).addTo(map);
 var baseLayers = {
-    "Streets": osmAustin
+    "OSM Minimal": osmAustinMinimal,
+    "OSM Bright": osmAustinBright
 };
 var overlays = {
     "City of Austin Bike Routes": bikeRoutes
