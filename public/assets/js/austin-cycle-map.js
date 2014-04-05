@@ -2,34 +2,35 @@ var map = L.map('map', {
     maxBounds: L.latLngBounds(L.latLng(29.9276, -98.2246), L.latLng(30.6793,-97.229))
 }).setView([30.2703704,-97.736922], 14);
 
-var osmAustinBright = L.tileLayer('http://basemaptiles{s}.austincyclemap.com/austin-open-street-map-bright/{z}/{x}/{y}.png', {
-    minZoom: 10,
-    maxZoom: 18,
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
-}).addTo(map);
-
 var osmAustinMinimal = L.tileLayer('http://basemaptiles{s}.austincyclemap.com/austin-open-street-map-minimal/{z}/{x}/{y}.png', {
     minZoom: 10,
     maxZoom: 18,
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
 }).addTo(map);
 
+var osmAustinBright = L.tileLayer('http://basemaptiles{s}.austincyclemap.com/austin-open-street-map-bright/{z}/{x}/{y}.png', {
+    minZoom: 10,
+    maxZoom: 18,
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+});
+
 var bikeRoutes = L.tileLayer('http://tiles{s}.austincyclemap.com/austin-bike-routes/{z}/{x}/{y}.png', {
     minZoom: 10,
     maxZoom: 18,
     attribution: 'Bike Routes Courtesy of <a href="http://www.austintexas.gov/department/gis-and-maps">City of Austin GIS Division</a>'
 }).addTo(map);
+
 var baseLayers = {
     "OSM Minimal": osmAustinMinimal,
     "OSM Bright": osmAustinBright
+
 };
 var overlays = {
     "City of Austin Bike Routes": bikeRoutes
 };
+
 L.control.layers(baseLayers, overlays).addTo(map);
-map.on('locationfound', onLocationFound);
-map.on('locationerror', onLocationError);
-map.locate({setView: true, maxZoom: 16});
+
 var legend = L.control({position: 'bottomright'});
 
 legend.onAdd = function (map) {
@@ -41,9 +42,17 @@ legend.onAdd = function (map) {
     return div;
 };
 legend.addTo(map);
+
+map.on('locationfound', onLocationFound);
+map.on('locationerror', onLocationError);
+map.locate({setView: true, maxZoom: 16});
+
 function onLocationFound(e) {
-    var radius = e.accuracy / 2;
-    L.circle(e.latlng, radius).addTo(map);
+    if (L.latLngBounds(L.latLng(29.9276, -98.2246), L.latLng(30.6793,-97.229)).contains(e.bounds)) {
+        map.setView(e.latlng, 16);
+    } else {
+        map.setView([30.2703704,-97.736922], 14);
+    }
 }
 function onLocationError(e) {
     if(e && e.code === 1) {
